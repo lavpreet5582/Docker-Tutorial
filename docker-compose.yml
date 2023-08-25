@@ -4,10 +4,10 @@ services:
     image: "love28856/multi-client"
     mem_limit: 128m
     hostname: client
-  server:
+  backend:
     image: "love28856/multi-server"
     mem_limit: 128m
-    hostname: api
+    hostname: backend
     environment:
       - REDIS_HOST=$REDIS_HOST
       - REDIS_PORT=$REDIS_PORT
