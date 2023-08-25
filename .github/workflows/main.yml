@@ -13,15 +13,15 @@ jobs:
       - run: docker build -t lavpreet/react-test -f ./client/Dockerfile.dev ./client
       - run: docker run -e CI=true lavpreet/react-test npm test
 
-      - run: docker build -t lavpreet/multi-client ./client
-      - run: docker build -t lavpreet/multi-nginx ./nginx
-      - run: docker build -t lavpreet/multi-server ./server
-      - run: docker build -t lavpreet/multi-worker ./worker
+      - run: docker build -t ${{ secrets.DOCKER_USERNAME }}/multi-client ./client
+      - run: docker build -t ${{ secrets.DOCKER_USERNAME }}/multi-nginx ./nginx
+      - run: docker build -t ${{ secrets.DOCKER_USERNAME }}/multi-server ./server
+      - run: docker build -t ${{ secrets.DOCKER_USERNAME }}/multi-worker ./worker
 
-      - run: docker push lavpreet/multi-client
-      - run: docker push lavpreet/multi-nginx
-      - run: docker push lavpreet/multi-server
-      - run: docker push lavpreet/multi-worker
+      - run: docker push ${{ secrets.DOCKER_USERNAME }}/multi-client
+      - run: docker push ${{ secrets.DOCKER_USERNAME }}/multi-nginx
+      - run: docker push ${{ secrets.DOCKER_USERNAME }}/multi-server
+      - run: docker push ${{ secrets.DOCKER_USERNAME }}/multi-worker
 
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
