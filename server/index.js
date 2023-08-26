@@ -39,7 +39,14 @@ redisClient.on("connect", () => {
 
 //express route handlers
 app.get("/", (req, res) => {
-  res.send("Hi");
+  res.send({
+    "user": keys.pgUser,
+    "pass": keys.pgPassword,
+    "host": keys.pgHost,
+    "port": keys.pgPort,
+    "database": keys.pgDatabase,
+    "keys": keys
+  });
   
 });
 
