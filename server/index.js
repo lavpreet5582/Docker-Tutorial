@@ -17,13 +17,17 @@ const pgClient = new Pool({
   database: keys.pgDatabase,
   password: keys.pgPassword,
   port: keys.pgPort,
+  onConnect: async (client) => {
+    console.log("Connected to postgres");
+    await client.query(`CREATE TABLE IF NOT EXISTS values (number INT)`);
+  }
 });
 
-pgClient.on("connect", (client) => {
-  client
-    .query("CREATE TABLE IF NOT EXISTS values (number INT)")
-    .catch((err) => console.error(err));
-});
+// pgClient.on("connect", (client) => {
+//   client
+//     .query("CREATE TABLE IF NOT EXISTS values (number INT)")
+//     .catch((err) => console.error(err));
+// });
 
 //Redis client setup
 const redis = require("redis");
@@ -40,14 +44,13 @@ redisClient.on("connect", () => {
 //express route handlers
 app.get("/", (req, res) => {
   res.send({
-    "user": keys.pgUser,
-    "pass": keys.pgPassword,
-    "host": keys.pgHost,
-    "port": keys.pgPort,
-    "database": keys.pgDatabase,
-    "keys": keys
+    user: keys.pgUser,
+    pass: keys.pgPassword,
+    host: keys.pgHost,
+    port: keys.pgPort,
+    database: keys.pgDatabase,
+    keys: keys,
   });
-  
 });
 
 app.get("/values/all", async (req, res) => {
@@ -72,7 +75,6 @@ app.post("/values", async (req, res) => {
   res.send({ working: true });
 });
 
-
 app.listen(5000, (err) => {
   console.log("Listening");
-})
+});
