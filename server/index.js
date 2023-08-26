@@ -51,12 +51,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/values/all", async (req, res) => {
-  const values = pgClient.query("SELECT * from values");
+  const values = await pgClient.query("SELECT * from values");
   res.send(values.rows);
 });
 
 app.get("/values/current", async (req, res) => {
-  console.log("Current Called");
   redisClient.hgetall("values", (err, values) => {
     res.send(values);
   });
