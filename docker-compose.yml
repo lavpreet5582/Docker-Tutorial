@@ -8,6 +8,7 @@ services:
     image: "love28856/multi-server"
     mem_limit: 128m
     hostname: backend
+    restart: always
     environment:
       - REDIS_HOST=$REDIS_HOST
       - REDIS_PORT=$REDIS_PORT
@@ -20,6 +21,7 @@ services:
     image: "love28856/multi-worker"
     mem_limit: 128m
     hostname: worker
+    restart: always
     environment:
       - REDIS_HOST=$REDIS_HOST
       - REDIS_PORT=$REDIS_PORT
