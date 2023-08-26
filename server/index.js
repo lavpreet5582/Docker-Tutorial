@@ -17,6 +17,7 @@ const pgClient = new Pool({
   database: keys.pgDatabase,
   password: keys.pgPassword,
   port: keys.pgPort,
+  ssl:true,
   onConnect: async (client) => {
     console.log("Connected to postgres");
     await client.query(`CREATE TABLE IF NOT EXISTS values (number INT)`);
