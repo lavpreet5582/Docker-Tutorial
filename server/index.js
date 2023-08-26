@@ -29,6 +29,7 @@ const pgClient = new Pool({
 //     .catch((err) => console.error(err));
 // });
 
+
 //Redis client setup
 const redis = require("redis");
 const redisClient = redis.createClient({
